@@ -1,0 +1,20 @@
+{
+  "name": "that-which-befalls",
+  "version": "1.0.0",
+  "description": "A Symptom Tracker",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sam Marshall",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.35.0",
+    "webpack": "^1.12.6"
+  },
+  "dependencies": {
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
+  }
+}
