@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "jsnox": "^2.1.1",
+    "ramda": "^0.18.0",
     "react": "^0.14.2",
     "react-dom": "^0.14.2"
   }

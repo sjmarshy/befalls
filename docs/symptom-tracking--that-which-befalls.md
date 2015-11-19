@@ -13,6 +13,8 @@ Okay, so let's dive in.
 
 ## Why the stupid name?
 
+`Symptom` can be translated as 'That which befalls'. Simple as.
+
 ## How things would be tracked
 
 
@@ -26,23 +28,41 @@ Initially, I think constructing the core, simplest state of things would be best
 
 # How would this be stored? Handled across devices?
 
-Of course, it would be more useful if this tool was on me at all times. While to most this may suggest a phone, for me as a developer I frequently (if not more frequently than not) set my phone aside and focus strongly on a laptop screen. For this reason, the format chosen will likely be a desktop/web/[electron](http://electron.atom.io/) app (even more likely the latter two, as I'm a web developer).
+Of course, it would be more useful if this tool was on me at all times. While to most this may suggest a phone, for me as a developer I frequently (if not more frequently than not) set my phone aside and focus strongly on a laptop screen. For this reason, at first at least we're going with a node server/electron frontend.
 
-I do, however, work across multiple devices, and it would be best if I could have a way of accessing the same data on different platforms. It would also be pretty sweet to eventually have the afore-dismissed phone application, so some kind of client-server architecture seems ideal. The form that this architecture takes should be shaped by a few things. Firstly, as highly personal data, it should be either not be sent across the wire or sent across the wire in a highly secure manner. Secondly, it should be consistent across devices; maintain a permenant history, and be difficult (if not impossible) to loose data from the system.
+Having said this, I do work across multiple devices, and it would be best if I could have a way of accessing the same data on different platforms. It would also be pretty sweet to eventually have the afore-dismissed phone application, so the node server will likely expose (if only locally, and possibly with a pairing step first) an API for transmitting data. As this is personal data, we should stick to local communications only, attempt to encrypt what we can, and make the location of the data transparent to the user. The data would never be sent over an open internet connection.
 
-This basically writes out traditional server-client architecture. As previously mentioned, budget is a factor (I'd also like it to be usable by others, preferably non-technical people too) - so setting up a Digital Ocean server, installing a SSL Certificate and running an API to connect to wouldn't be ideal. 
+There must also be the ability to export data in a multitude of formats, as the user must feel like they own their data, and should be able to take it away or do their own analysis if they wish. Preferably, this would be handled in a pluggable way.
 
-This doesn't seem to leave much of an option, perhaps a robust sync system based around git-style merges could be developed? Some form of over-the-wire data-transfer looks like it will be required. If I was more technically savvy, I would suggest a direct peer-to-peer connection and some kind of distributed graph to track the data. As it is, it may be more useful to keep it simple and, rather than rely on the application itself dealing with these issues straight away, simply referring to a save-file which can be Dropboxed, BitTorrent Synced or just USB'd around between computers, and allow configuration and backup of save files. 
-
-Having said this, although the data wouldn't be tied in to the client-server architecture, one would still exist - the main application would run in the background, headless, and the interface would be presented via an electron window, or a web browser. Perhaps the imagined phone application could store it's data locally until on the same network as an application, and simply send it's accrued data to the server as a series of timestamped additions? 
-
-This may be the simplest way of handling the problem.
-
-As to how we should store this, at first for simplicitys sake a flat file-system based approach may be preferable, with the possibility of a custom binary format down the line. I'd also like to take backups and at least have the option for export/import of human readable data. Where possible this would be executed in a pluggable way.
+As to how we should store this data, at first for simplicitys sake a flat file-system based approach may be preferable, with the possibility of a custom binary format down the line. The custom binary format would have the advantages of size and obsfucation.
 
 ## What would/could be tracked
 
 Although I have specific things I'd wish to track in mind I would like this to be usable by others too, as previously mentioned. Although I'll start simple with date/time, symptom + severity and mood, I'll add in food and drink and last time experienced, and ideas are already begining to form about allowing configuration of what the user could track, custom metrics of certain types, that could be collected and expanded upon by the user. This would come later, however. I'll make it work for me, first, and move on to others once I'd managed that.
+
+A non-exhaustive list of things people might like to track are:
+
+* symptoms
+	* time of symptom
+	* severity
+	* effects of
+* food
+	* calorie count
+	* last time ate
+	* what eaten
+* drink
+	* hydration
+	* calorie count
+	* last time drank
+* mood
+* sleep the previous night
+* exercise
+	* intensity
+	* last time exercised
+	* type of exercise
+
+	
+it might be interesting to see how the user might input each of these items to track, to see if a generalised system could be created.
 
 ## how would this collected data be displayed?
 
@@ -62,12 +82,13 @@ Now, onto answering the actual question.
 
 I see the following, in the order given
 
-* basic server to start the electron app (immediately at first)
-* basic way of adding entries to a file
-* redux reducer w/ an action for doing the above
-* socket endpoint for accepting args and triggering above action
-* design + build electron form for publishing to this endpoint
-* basic, textual view on this data
-* basic, graph-based view on this data.
+* [x] basic server to start the electron app (immediately at first)
+* [ ] basic way of adding entries to a flat file
+* [ ] redux reducer w/ an action for doing the above
+* [ ] socket endpoint for accepting args and triggering above action
+* [ ] design general layout for frontend (this can be improved later).
+* [ ] design + build electron form for publishing to this endpoint
+* [ ] basic, textual view on this data
+* [ ] basic, graph-based view on this data.
 
 We'll get this far and see how it goes. This is the stuff I'd like to have done for the first release. Any further than that, and I'll be more pleased than I've ever been. Well, maybe not, but hey. Let's get on with it.
