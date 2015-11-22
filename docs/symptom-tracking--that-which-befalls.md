@@ -26,6 +26,16 @@ Secondly, I believe that a random sampling of data may be useful. For this, the 
 
 Initially, I think constructing the core, simplest state of things would be best - get something working quickly. As to what the core would be could be an excercise later for this document
 
+I think in the future, it might be wonderful to have a look at something like statsd and the type of counters available, I think these things might be useful.
+
+another option is having TYPES such as
+
+cumulative :- always adds up over time
+
+cumulativePerPeriod :- adds up per period of given time, i.e x hours of sleep per day, once a day it resets (would we need to provide the time this resets at? hopefully not)
+
+discrete :- each action is separate, but could be related. E.G mood isn't cumulative.
+
 # How would this be stored? Handled across devices?
 
 Of course, it would be more useful if this tool was on me at all times. While to most this may suggest a phone, for me as a developer I frequently (if not more frequently than not) set my phone aside and focus strongly on a laptop screen. For this reason, at first at least we're going with a node server/electron frontend.
@@ -83,8 +93,11 @@ Now, onto answering the actual question.
 I see the following, in the order given
 
 * [x] basic server to start the electron app (immediately at first)
-* [ ] basic way of adding entries to a flat file
-* [ ] redux reducer w/ an action for doing the above
+* [x] basic way of adding entries to a flat file
+* [x] read up on redux in this context and see how best to stick it in the back end
+* [x] redux reducer w/ an action for doing the above
+* [ ] express server, for serving application static & dynamic resources
+* [ ] serve main application page from server, not filesystem.
 * [ ] socket endpoint for accepting args and triggering above action
 * [ ] design general layout for frontend (this can be improved later).
 * [ ] design + build electron form for publishing to this endpoint
