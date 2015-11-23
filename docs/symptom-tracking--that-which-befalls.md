@@ -96,9 +96,9 @@ I see the following, in the order given
 * [x] basic way of adding entries to a flat file
 * [x] read up on redux in this context and see how best to stick it in the back end
 * [x] redux reducer w/ an action for doing the above
-* [ ] express server, for serving application static & dynamic resources
-* [ ] serve main application page from server, not filesystem.
-* [ ] socket endpoint for accepting args and triggering above action
+* [x] express server, for serving application static & dynamic resources
+* [x] serve main application page from server, not filesystem.
+* [x] socket endpoint for accepting args and triggering above action
 * [ ] design general layout for frontend (this can be improved later).
 * [ ] design + build electron form for publishing to this endpoint
 * [ ] basic, textual view on this data
