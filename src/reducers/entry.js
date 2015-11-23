@@ -22,7 +22,10 @@ module.exports = (state = fromJS({
   case RECEIVE_ENTRIES:
 
     return state.set("gettingEntries", false)
-      .set("entries", fromJS(action.entries));
+      .set("entries", action.entries.reduce((m, x) => {
+
+        return m.set(x.timeCreated, x);
+      }, fromJS({})));
 
   case GET_ENTRIES:
 

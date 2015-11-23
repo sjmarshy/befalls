@@ -7,11 +7,12 @@ const path = require("path");
 const util = require("util");
 const logfile = require("./logfile.js");
 const store = require("./store.js");
-const { fetchEntries } = require("./actions/entry.js");
+const { fetchEntries, addSymptom } = require("./actions/entry.js");
 const express = require("express");
 const expressApp = express();
 const server = require("http").Server(expressApp);
 const io = require("socket.io")(server);
+const { GET_ENTRIES, ADD_ENTRY } = require("./shared/messages.js");
 
 const DEFAULT_PORT = 8080;
 const DEFAULT_LOGFILE_LOC = path.join(process.env.HOME, ".befalls.log");
@@ -34,6 +35,7 @@ server.listen(PORT, () => {
 
 expressApp.use(express.static(path.join(__dirname, "..", "public")));
 
+
 app.on("ready", () => {
 
   let logfileLocation = process.env.BEFALLS_LOGFILE_LOC || DEFAULT_LOGFILE_LOC;
@@ -53,11 +55,32 @@ app.on("ready", () => {
 
     console.error(e);
   });
+
+  io.on("connection", (socket) => {
+
+    store.subscribe(() => {
+
+      let s = store.getState();
+
+      console.dir(s);
+
+      socket.emit(GET_ENTRIES, store.getState().entry.get("entries"));
+    });
+
+    socket.on(ADD_ENTRY, (entry) => {
+
+      store.dispatch(
+          addSymptom(
+            logfileLocation,
+            entry.name,
+            entry.severity,
+            entry.timeCreated));
+
+      socket.emit("ACK:" + entry.messageNo);
+    });
+  });
+
 });
 
 
-io.on("connection", (socket) => {
 
-  // temp
-  socket.emit("hello");
-});

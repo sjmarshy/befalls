@@ -6,10 +6,13 @@ module.exports = {
     path: "public/js",
     filename: "index.js"
   },
-  loaders: [{ 
+  module: {
+    loaders: [{ 
 
-    test: /\.js$/,
-    loader: "babel-loader"}
-  ],
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader"}
+    ]
+  },
   debug: true
 };
