@@ -8,6 +8,15 @@ const util = require("util");
 const logfile = require("./logfile.js");
 const store = require("./store.js");
 const { fetchEntries } = require("./actions/entry.js");
+const express = require("express");
+const expressApp = express();
+const server = require("http").Server(expressApp);
+const io = require("socket.io")(server);
+
+const DEFAULT_PORT = 8080;
+const DEFAULT_LOGFILE_LOC = path.join(process.env.HOME, ".befalls.log");
+
+const PORT = process.env.BEFALLS_PORT || DEFAULT_PORT;
 
 crashReporter__.start();
 
@@ -18,9 +27,16 @@ process.on("unhandledRejection", (promise, reason) => {
   throw new Error(`unhandled rejection for promise ${promise}, reason: ${util.inspect(reason)}`);
 });
 
+server.listen(PORT, () => {
+
+  console.log(`server is listening at localhost:${PORT}`);
+});
+
+expressApp.use(express.static(path.join(__dirname, "..", "public")));
+
 app.on("ready", () => {
 
-  let logfileLocation = process.env.BEFALLS_LOGFILE_LOC ||path.join( __dirname , "history.log");
+  let logfileLocation = process.env.BEFALLS_LOGFILE_LOC || DEFAULT_LOGFILE_LOC;
 
   logfile.ensureLogfileExists__(logfileLocation).then(() => {
 
@@ -29,7 +45,7 @@ app.on("ready", () => {
 
     mainWindow = browser.loadURL__(
         browser.createWindow(),
-        "file://" + __dirname + "/public/index.html");
+        "http://localhost:" + PORT);
 
     mainWindow;
 
@@ -37,4 +53,11 @@ app.on("ready", () => {
 
     console.error(e);
   });
+});
+
+
+io.on("connection", (socket) => {
+
+  // temp
+  socket.emit("hello");
 });
