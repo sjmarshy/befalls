@@ -1,12 +1,14 @@
 /* globals io */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const d = require("jsnox")(React);
 const m = require("../../src/shared/messages.js");
 const store = require("./store.js");
-const AddSymptomForm = require("./components/add-symptom-form.js");
 const addSocket = require("./actions/util.js").addSocket;
+const { Router, Route, IndexRoute } = require("react-router");
+const { connect, Provider } = require("react-redux");
+const AddSymptomForm = require("./components/add-symptom-form.js");
+const Header = require("./components/common/header.js");
 
 const PORT = 8080;
 
@@ -16,16 +18,31 @@ store.dispatch(addSocket(socket));
 
 socket.on(m.GET_ENTRIES, (entries) => {
 
-  console.log(entries);
+  console.log("entries ", entries);
 });
 
-const TestApp = React.createClass({
+const App = React.createClass({
 
-  render: function () {
-    
-    return d(AddSymptomForm, {});
+  render() {
+
+    return d("div.that-which-befalls-app", {},
+        d(Header, { ui: this.props.ui }),
+        this.props.children);
   }
-  
 });
 
-ReactDOM.render(d(TestApp, {}), document.querySelector("[data-app]"));
+const Wrapper = React.createClass({
+
+  render() {
+
+    return d(
+        Router, {},
+        d(Route, { path: "/", component: connect((s) => s)(App) },
+          d(IndexRoute, { component: AddSymptomForm })));
+  }
+});
+
+ReactDOM.render(
+    d(Provider, { store: store },
+      d(Wrapper, {})), 
+    document.querySelector("[data-app]"));

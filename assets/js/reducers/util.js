@@ -1,7 +1,9 @@
 const ADD_SOCKET = require("../actions/util.js").ADD_SOCKET;
 const fromJS = require("immutable").fromJS;
 
-module.exports = (state = fromJS({}), action) => {
+const initialState = fromJS({});
+
+module.exports = (state = initialState, action) => {
 
   switch(action.type) {
 
