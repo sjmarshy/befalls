@@ -1,0 +1,15 @@
+.befalls-form,
+[data-component~=befalls-form] {
+
+  > .formgroup {
+
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+  }
+
+  > .formgroup > .label {
+
+    padding-bottom: 6px;
+  }
+}

@@ -1,0 +1,13 @@
+a[href] {
+
+  text-decoration: none;
+  color: blue;
+  transition: opacity 0.4s;
+  padding: 3px; 
+}
+
+a[href]:hover {
+
+  opacity: 0.6;
+  transition: opacity 0.4s;
+}

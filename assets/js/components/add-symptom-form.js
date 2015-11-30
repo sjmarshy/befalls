@@ -45,13 +45,17 @@ module.exports = React.createClass({
 
   render: function () {
 
-    return d("div[data-component='add-symptom-form']", {},
-      d("form.addsymptomform", 
+    return d("div[data-component=add-symptom-form]", {},
+      d("form.addsymptomform.befalls-form", 
           { onSubmit: this.onSubmitAddSymptomForm },
-          d("input.nameinput[type=text][name=name]", 
-            {value: this.state.symptomName, onChange: this.updateSymptomName }),
-          d("input.severityinput[type=range][max=10][name=severity]", 
-            {value: this.state.symptomSeverity, onChange: this.updateSymptomSeverity}),
+          d("div.formgroup",
+            d("label.label", {}, "Symptom Name"),
+            d("input.nameinput[type=text][name=name]", 
+              {value: this.state.symptomName, onChange: this.updateSymptomName })),
+          d("div.formgroup",
+            d("label.label", {}, "Severity"),
+            d("input.severityinput[type=range][max=10][name=severity]", 
+              {value: this.state.symptomSeverity, onChange: this.updateSymptomSeverity})),
           d("input.submitbutton[type=submit]", {})));
   }
   

@@ -1,0 +1,29 @@
+.befalls-header {
+
+  > .pagetitlewrapper {
+
+    width: 100%;
+    border-bottom: 2px dotted lighten(grey, 30%);
+    height: 30px;
+  }
+
+  > .pagelinkswrapper {
+
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  > .pagetitlewrapper > .pagetitle {
+
+    font-size: 1.4em;
+    color: lighten(grey, 20%);
+  }
+
+  > .pagelinkswrapper > a[href].selected {
+
+    background-color: lighten(grey, 40%);
+  }
+
+}

@@ -1,0 +1,12 @@
+[data-component~="add-symptom"] {
+
+  display: flex;
+  flex-direction: column;
+
+  > .title {
+
+    color: grey;
+    font-size: 1.1em;
+    font-weight: 300;
+  }
+}
